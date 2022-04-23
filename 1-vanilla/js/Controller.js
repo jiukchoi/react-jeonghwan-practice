@@ -3,5 +3,21 @@ export default class Controller {
     this.store = store;
 
     this.searchFormView = searchFormView;
+
+    this.subscribeViewEvents();
+  }
+
+  subscribeViewEvents() {
+    this.searchFormView
+      .on('@submit', (event) => this.search(event.detail.value))
+      .on('@reset', () => this.reset());
+  }
+
+  search(keyword) {
+    console.log(keyword);
+  }
+
+  reset() {
+    console.log('reset');
   }
 }
