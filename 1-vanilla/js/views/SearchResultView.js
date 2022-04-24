@@ -32,7 +32,7 @@ class Template {
     `;
   }
 
-  getItem({ imageUrl, name }) {
+  _getItem({ imageUrl, name }) {
     return `
       <li>
         <img src="${imageUrl}" alt="${name}" />
