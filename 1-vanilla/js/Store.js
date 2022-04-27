@@ -17,4 +17,8 @@ export default class Store {
       product.name.includes(searchKeyword)
     );
   }
+
+  getKeywordList() {
+    return this.storage.keywordData;
+  }
 }
