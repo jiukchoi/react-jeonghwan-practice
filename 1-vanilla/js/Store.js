@@ -1,4 +1,5 @@
 import { TabType } from './views/TabView.js';
+import { createNextId } from './helpers.js';
 
 export default class Store {
   constructor(storage) {
@@ -16,6 +17,7 @@ export default class Store {
     this.searchResult = this.storage.productData.filter((product) =>
       product.name.includes(searchKeyword)
     );
+    this.addHistory(searchKeyword);
   }
 
   getKeywordList() {
@@ -27,6 +29,29 @@ export default class Store {
   }
 
   _sortHistory(history1, history2) {
-    return history2.date > history1.date;
+    return history2.date - history1.date;
+  }
+
+  removeHistory(keyword) {
+    this.storage.historyData = this.storage.historyData.filter(
+      (history) => history.keyword !== keyword
+    );
+  }
+
+  addHistory(keyword) {
+    keyword = keyword.trim();
+    if (!keyword) return;
+
+    const hasHistory = this.storage.historyData.some(
+      (history) => history.keyword === keyword
+    );
+    if (hasHistory) {
+      this.removeHistory(keyword);
+    }
+
+    const id = createNextId(this.storage.historyData);
+    const date = new Date();
+    this.storage.historyData.push({ id, keyword, date });
+    this.storage.historyData = this.storage.historyData.sort(this._sortHistory);
   }
 }

@@ -44,7 +44,7 @@ export function formatRelativeDate(date = new Date()) {
   if (diff < TEN_SECOND) return `방금 전`;
   if (diff < A_MINUTE) return `${Math.floor(diff / 1000)}초 전`;
   if (diff < A_HOUR) return `${Math.floor(diff / 1000 / 60)}분 전`;
-  if (diff < A_DAY) return `${Math.floor(diff / 1000 / 60 / 24)}시간 전`;
+  if (diff < A_DAY) return `${Math.floor(diff / 1000 / 60 / 60)}시간 전`;
   return date.toLocaleString('ko-KR', {
     hour12: false,
     dateStyle: 'medium',
